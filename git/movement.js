@@ -22,6 +22,6 @@ document.addEventListener("keypress", (ewent) => {
       break;
 
     default:
-      console.log("Другая клавиша");
+      console.log("Другая клавиша ");
   }
 });
