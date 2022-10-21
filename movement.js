@@ -25,4 +25,3 @@ document.addEventListener("keypress", (ewent) => {
       console.log("Другая клавиша");
   }
 });
-console.log(1);
