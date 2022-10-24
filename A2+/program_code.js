@@ -11,4 +11,4 @@ const function_delit_spase = (str_change) => {
     .join(""));
 };
 const changes_str = function_delit_spase(str1);
-console.log(changes_str);
+alert(changes_str);
