@@ -14,4 +14,4 @@ const treeSum = (elements) => {
   return sum;
 };
 
-alert(sum_oll_numbers(arrey_for_the_sum));
+alert(treeSum(arrey_for_the_sum));
