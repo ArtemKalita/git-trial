@@ -1,5 +1,5 @@
 let sum = 0;
-const arrey_for_the_sum = JSON.parse(prompt("введите массив"));
+const arrey_for_the_sum = JSON.parse(prompt("Введите массив"));
 const treeSum = (elements) => {
   for (const each_element of elements) {
     if (typeof each_element == "number") {
