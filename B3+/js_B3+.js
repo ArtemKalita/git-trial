@@ -34,7 +34,7 @@ const count = (expression) => {
 
     //       break;
     //   }
-    // }
+    // }{e:e}
     console.log(substring);
     substring.forEach((element) => {
       console.log(element);
