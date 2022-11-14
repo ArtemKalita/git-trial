@@ -6,7 +6,6 @@ const function_delit_spase = (str_change) => {
       if (element[i] == " ") {
         element.shift();
         i -= 1;
-        console.log(element);
       } else {
         element.reverse();
         return element.join("");
