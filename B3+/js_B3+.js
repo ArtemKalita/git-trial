@@ -1,7 +1,72 @@
 const expression = prompt("введите выражение");
 const count = (expression) => {
-  let substring = 0;
   let sum = 0;
+  let bracket = [];
+  let number_of_bracket = [];
+  let number_of_element = 0;
+
+  // нахожу 2 ближайшии скобкию. А именно (,). Ипкредаю их индексы.
+  const find_the_nearest_bracket = (bracket1) => {
+    for (let i = 0; i < bracket1.length; i++) {
+      let ferst_element = bracket1[i];
+      let second_element = bracket1[i + 1];
+      if (ferst_element == "(" && second_element == ")") {
+        let two_rite_elements = [
+          number_of_bracket[i] - 1,
+          number_of_bracket[i + 1] - 1,
+        ];
+        bracket.splice(i, 2);
+        number_of_bracket.splice(i, 2);
+
+        return two_rite_elements;
+      }
+    }
+  };
+  // Выполнение действия
+  const performing_actions = (expression_in_bracket) => {
+    for (let i = 0; i < expression_in_bracket.length; i++) {
+      switch (expression_in_bracket[i]) {
+        case "*":
+          sum =
+            parseFloat(expression_in_bracket[i - 1]) *
+            parseFloat(expression_in_bracket[i + 1]);
+          expression_in_bracket.splice(i - 1, 3, sum);
+          i -= 1;
+
+          break;
+        case "/":
+          sum =
+            parseFloat(expression_in_bracket[i - 1]) /
+            parseFloat(expression_in_bracket[i + 1]);
+          expression_in_bracket.splice(i - 1, 3, sum);
+          i -= 1;
+
+          break;
+      }
+    }
+    for (let i = 0; i < expression_in_bracket.length; i++) {
+      switch (expression_in_bracket[i]) {
+        case "+":
+          sum =
+            parseFloat(expression_in_bracket[i - 1]) +
+            parseFloat(expression_in_bracket[i + 1]);
+          expression_in_bracket.splice(i - 1, 3, sum);
+          i -= 1;
+
+          break;
+        case "-":
+          sum =
+            parseFloat(expression_in_bracket[i - 1]) -
+            parseFloat(expression_in_bracket[i + 1]);
+          expression_in_bracket.splice(i - 1, 3, sum);
+          i -= 1;
+
+          break;
+      }
+    }
+
+    return sum.toString();
+  };
   // парсинг строки на элементы
   expression = expression.replaceAll(" ", "");
   expression = expression.replaceAll("-", " - ");
@@ -10,132 +75,54 @@ const count = (expression) => {
   expression = expression.replaceAll("*", " * ");
   expression = expression.replaceAll(")", " )");
   expression = expression.replaceAll("(", "( ");
-  const all_alements = expression.split(" ");
-  // ==============
-  // Обратотка скобок
-  while (all_alements.lastIndexOf("(") >= 0) {
-    // получение внутренностей скобок
-    substring = all_alements.slice(
-      all_alements.lastIndexOf("(") + 1,
-      all_alements.indexOf(")")
-    );
-    // =========
-    // Выполнение действий
-    // Умножение и деление
+  let all_alements = expression.split(" ");
 
-    // for (const iterator of substring) {
-    //   console.log(iterator);
-    //   switch (iterator) {
-    //     case "*":
-    //       sum =
-    //         parseFloat(substring[substring.indexOf("*") - 1]) *
-    //         parseFloat(substring[substring.indexOf("*") + 1]);
-    //       substring.splice(substring.indexOf("*") - 1, 3, sum);
+  // запись всех скобок и их индексы
+  const faind = (exzempls) => {
+    bracket.length = 0;
+    number_of_bracket.length = 0;
+    number_of_element = 0;
+    console.log(bracket, number_of_bracket);
 
-    //       break;
-    //   }
-    // }{e:e}
-    console.log(substring);
-    substring.forEach((element) => {
-      console.log(element);
-      switch (element) {
-        case "*":
-          sum =
-            parseFloat(substring[substring.indexOf("*") - 1]) *
-            parseFloat(substring[substring.indexOf("*") + 1]);
-          substring.splice(substring.indexOf("*") - 1, 3, sum);
-          console.log(sum, substring);
+    exzempls.forEach((element) => {
+      number_of_element++;
 
-          break;
-        case "/":
-          sum =
-            parseFloat(substring[substring.indexOf("/") - 1]) /
-            parseFloat(substring[substring.indexOf("/") + 1]);
-          substring.splice(substring.indexOf("/") - 1, 3, sum);
-          console.log(sum, substring);
-          break;
+      if (element == "(") {
+        bracket.push("(");
+        number_of_bracket.push(number_of_element);
+      } else if (element == ")") {
+        bracket.push(")");
+        number_of_bracket.push(number_of_element);
       }
     });
-    console.log(substring);
-    // ======
+    console.log(bracket, number_of_bracket, all_alements);
+  };
+
+  // вычисление всех скобок
+  while (all_alements.indexOf("(") > -1) {
+    console.log(all_alements.length);
+    faind(all_alements);
+
+    let two_numbers = find_the_nearest_bracket(bracket);
+    let expression_in_bracket = all_alements.slice(
+      two_numbers[0],
+      two_numbers[1]
+    );
+    console.log(two_numbers);
+    let lens = two_numbers[1] - two_numbers[0] + 1;
 
     all_alements.splice(
-      all_alements.lastIndexOf("("),
-      all_alements.indexOf(")") - all_alements.lastIndexOf("(") + 1,
-      sum
+      two_numbers[0],
+      lens,
+      performing_actions(expression_in_bracket)
     );
   }
+  // последни действие
+
+  return performing_actions(all_alements);
 };
 
-count(expression);
+// ура я это сделал
+// ХА-ХА-ХА-ХА-ХА-ХА
 
-// пример
-
-// ===============
-// const counting_expressions = (expression) => {
-//   expression = expression.split("");
-//   let all_alements = [];
-
-//   is_point = false;
-//   expression.forEach((element) => {
-//     if (isNaN(parseInt(element)) && element != ".") {
-//       all_alements.push(element);
-//       is_point = false;
-//     } else if (is_point == true || element == ".") {
-//       all_alements[number.length - 1] += element;
-//     } else {
-//       all_alements.push(element);
-//       is_point = true;
-//     }
-//   });
-//   console.log(all_alements);
-// };
-
-// counting_expressions(prompt(""));
-
-// работает
-// =================
-// function expr(expr) {
-//   var chars = expr.split("");
-//   var n = [],
-//     op = [],
-//     index = 0,
-//     oplast = true;
-
-//   n[index] = "";
-
-//   // Parse the expression
-//   for (var c = 0; c < chars.length; c++) {
-//     if (isNaN(parseInt(chars[c])) && chars[c] !== "." && !oplast) {
-//       op[index] = chars[c];
-//       index++;
-//       n[index] = "";
-//       oplast = true;
-//     } else {
-//       n[index] += chars[c];
-//       oplast = false;
-//     }
-//   }
-
-//   // Calculate the expression
-//   expr = parseFloat(n[0]);
-//   for (var o = 0; o < op.length; o++) {
-//     var num = parseFloat(n[o + 1]);
-//     switch (op[o]) {
-//       case "+":
-//         expr = expr + num;
-//         break;
-//       case "-":
-//         expr = expr - num;
-//         break;
-//       case "*":
-//         expr = expr * num;
-//         break;
-//       case "/":
-//         expr = expr / num;
-//         break;
-//     }
-//   }
-
-//   return expr;
-// }
+alert(`Ответ: ${count(expression)}`);
