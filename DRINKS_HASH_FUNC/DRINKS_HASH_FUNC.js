@@ -41,4 +41,4 @@ class HashStorageClass {
 // console.log(name1.getValu("rgrg"));
 // console.log(name1.deleteValue("6"));
 // console.log(name1.getKeys());
-const drinkStorage = new DRINKS_HASH_FUNC();
+const drinkStorage = new HashStorageClass();
