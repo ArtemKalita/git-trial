@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="DRINKS_HASH_FUNC.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="all_muves">
+      <button
+        class="button"
+        onclick="drinkStorage.addValue(prompt('название напитка'),confirm('алкагольный напиток?'),prompt('Ингридиенты напитка'))"
+      >
+        Добавить напиток
+      </button>
+      <button
+        class="button"
+        onclick="drinkStorage.getValu(prompt('Какого напитка показать ингридиенты?'))"
+      >
+        Показать ингридиенты напитка
+      </button>
+      <button
+        class="button"
+        onclick="drinkStorage.deleteValue(prompt('Какой напиток удалить?'))"
+      >
+        Убрать напиток
+      </button>
+      <button class="button" onclick="drinkStorage.getKeys()">
+        Покозать все напитки
+      </button>
+    </div>
+    <script src="DRINKS_HASH_FUNC.js"></script>
+  </body>
+</html>
